@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open StorkNeeds App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      text-align: center;
+      background: #fefefe;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      background-color: #EB706A;
+      color: white;
+      cursor: pointer;
+    }
+    a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Open StorkNeeds</h1>
+  <p>If the app is installed, it should open automatically. Otherwise, you can download it.</p>
+
+  <button id="openApp">Open App</button>
+  <a href="https://example.com/path-to-your-apk.apk" download>
+    <button>Download APK</button>
+  </a>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const uid = params.get('uid') || '';
+
+    const deepLink = `storkneeds://signup?uid=${uid}`;
+    const openAppBtn = document.getElementById('openApp');
+
+    openAppBtn.onclick = () => {
+      // Try to open the app
+      window.location = deepLink;
+
+      // Fallback: after 2 seconds, the APK button is enough
+      setTimeout(() => {
+        alert("If the app didn't open, use the 'Download APK' button below.");
+      }, 2000);
+    };
+
+    // Optional: automatically try to open the app on page load
+    setTimeout(() => {
+      window.location = deepLink;
+    }, 500);
+  </script>
+</body>
+</html>
